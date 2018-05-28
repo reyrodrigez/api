@@ -4,15 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "build": "babel src -d dist",
+    "start": "yarn build && nodemon dist/server.js",
     "precommit": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": ["prettier --write", "git add"]
   },
   "repository": {
     "type": "git",
@@ -31,10 +29,37 @@
     "mongoose": "^5.0.12"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^4.19.1",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.2",
     "nodemon": "^1.17.3",
     "prettier": "1.11.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "indent": [2, 4],
+      "quotes": [2, "single"],
+      "semi": [2, "always"]
+    },
+    "sourceType": "module"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "6.10"
+          }
+        }
+      ]
+    ]
   }
 }
